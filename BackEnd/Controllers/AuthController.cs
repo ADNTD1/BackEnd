@@ -101,8 +101,6 @@ namespace BackEnd.Controllers
             _context.Users.Add(user); 
             await _context.SaveChangesAsync(); //  se guarda todo en la base de datos y se manda un 200 OK para saber que se hizo exitosamente 
             return Ok("registro exitoso");
-
-
         }   
                 
 
