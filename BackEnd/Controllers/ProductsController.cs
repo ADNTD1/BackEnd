@@ -16,6 +16,8 @@ namespace BackEnd.Controllers
             _context = context;
         }
 
+        
+
         [HttpGet("/graficas")]
 
         public async Task<IActionResult> GetGraphics()
@@ -29,7 +31,7 @@ namespace BackEnd.Controllers
 
         }
 
-        [HttpGet("/Cpus")]
+        [HttpGet("/cpus")]
 
         public async Task<IActionResult> GetCpus()
         {
@@ -38,8 +40,66 @@ namespace BackEnd.Controllers
                 .ToListAsync();
             return (Ok (procesadores));
         }
-     
 
+        [HttpGet("/rams")]
+        
+        public async Task<IActionResult> GetRams()
+        {
+            var rams = await _context.Ram
+                .Include(r => r.Brand)
+                .ToListAsync();
+            return (Ok (rams));
+        }
+
+        [HttpGet("/gabinetes")]
+        
+        public async Task<IActionResult> GetCases()
+        {
+            var gabinetes = await _context.Cases
+                .Include(c => c.Brand)
+                .ToListAsync();
+            return (Ok (gabinetes));    
+        }
+
+        [HttpGet("/enfriamientos")]
+
+        public async Task<IActionResult> GetCoolers()
+        {
+            var enfriamientos = await _context.CpuCoolers
+                .Include(c => c.Brand)
+                .ToListAsync();
+            return (Ok (enfriamientos));
+        }
+
+        [HttpGet("/motherboards")]
+
+        public async Task<IActionResult> GetMotherboards()
+        {
+            var motherboards = await _context.Motherboards
+                .Include(m => m.Brand)
+                .ToListAsync();
+            return (Ok(motherboards));
+        }
+        [HttpGet("/fuentes")]        
+        
+        public async Task<IActionResult> GetPsus()
+        {
+            var fuentes = await _context.PowerSupplies
+                .Include(p => p.Brand)
+                .ToListAsync(); 
+            return (Ok (fuentes));
+        }
+
+
+        [HttpGet("/almacenamientos")]
+
+        public async Task<IActionResult> GetStorages()
+        {
+            var almacenamientos = await _context.Storages
+                .Include(a => a.Brand)
+                .ToListAsync();
+            return (Ok (almacenamientos));
+        }
         
         
 
