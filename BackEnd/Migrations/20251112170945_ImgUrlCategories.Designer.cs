@@ -4,6 +4,7 @@ using Ecomerce_Back_End.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251112170945_ImgUrlCategories")]
+    partial class ImgUrlCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,9 +242,6 @@ namespace BackEnd.Migrations
                     b.Property<bool>("HasWiFi")
                         .HasColumnType("bit");
 
-                    b.Property<int>("M2Slots")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaxRamGB")
                         .HasColumnType("int");
 
@@ -337,9 +337,6 @@ namespace BackEnd.Migrations
 
                     b.Property<bool>("Rgb")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Slots")
-                        .HasColumnType("int");
 
                     b.Property<int>("SpeedMTs")
                         .HasColumnType("int");

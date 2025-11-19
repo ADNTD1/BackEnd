@@ -18,12 +18,13 @@ namespace Ecomerce_Back_End.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("/categories")]
         public async Task<IEnumerable<CategoryDto>> Get() =>
             await _context.ProductCategories.Select(c => new CategoryDto
             {
                 Id = c.Id,
-                CategoryName = c.CategoryName
+                CategoryName = c.CategoryName,
+                ImageUrl = c.ImageUrl,
             }).ToListAsync();
 
 

@@ -10,5 +10,7 @@
 
         public string MemType { get; set; }
 
+        public int Slots { get; set; }
+
     }
 }

@@ -9,6 +9,8 @@
         public int RamSlots { get; set; }
         public bool HasWiFi { get; set; }
 
+        public int M2Slots { get; set; }
+
         public string SupportedMemType { get; set; }
     }
 }
