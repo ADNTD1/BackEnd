@@ -30,6 +30,15 @@ namespace Ecomerce_Back_End.Data
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
+
+        public DbSet<Computers> Computers { get; set; } 
+
+        public DbSet<Laptop> laptops { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

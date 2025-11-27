@@ -4,6 +4,7 @@ using Ecomerce_Back_End.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124230832_Carrito-Compras")]
+    partial class CarritoCompras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,103 +79,7 @@ namespace BackEnd.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("CartItems");
-                });
-
-            modelBuilder.Entity("BackEnd.Models.Laptop", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BatteryCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ChargerPower")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GPU")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("HasBacklitKeyboard")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasBluetooth")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasFingerprintReader")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasSpeakers")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasWebcam")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("HasWifi6")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OperatingSystem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ports")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Processor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RAM")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RAMType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RefreshRate")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ScreenResolution")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ScreenSize")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Storage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StorageType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("laptops");
                 });
 
             modelBuilder.Entity("BackEnd.Models.ProductCategory", b =>
@@ -203,9 +110,6 @@ namespace BackEnd.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Admin")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -297,45 +201,6 @@ namespace BackEnd.Migrations
                         .HasColumnType("bit");
 
                     b.ToTable("Cases", (string)null);
-                });
-
-            modelBuilder.Entity("BackEnd.Models.Computers", b =>
-                {
-                    b.HasBaseType("Product");
-
-                    b.Property<string>("Case")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cpu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Disk")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gpu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MemType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Os")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Psu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalRam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Computers");
                 });
 
             modelBuilder.Entity("BackEnd.Models.CpuCooler", b =>
@@ -564,26 +429,7 @@ namespace BackEnd.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("BackEnd.Models.Laptop", b =>
-                {
-                    b.HasOne("Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -602,15 +448,6 @@ namespace BackEnd.Migrations
                     b.HasOne("Product", null)
                         .WithOne()
                         .HasForeignKey("BackEnd.Models.Case", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BackEnd.Models.Computers", b =>
-                {
-                    b.HasOne("Product", null)
-                        .WithOne()
-                        .HasForeignKey("BackEnd.Models.Computers", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

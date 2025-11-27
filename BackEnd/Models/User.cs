@@ -20,5 +20,7 @@ namespace BackEnd.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public bool Admin { get; set; }
+
     }
 }

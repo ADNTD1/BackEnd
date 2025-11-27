@@ -16,7 +16,21 @@ namespace BackEnd.Controllers
             _context = context;
         }
 
-        
+
+        [HttpGet("ProductDetail/{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var product = await _context.Products
+                .Include(p => p.Brand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null)
+                return NotFound();
+
+            return Ok(product);
+        }
+
+
 
         [HttpGet("/graficas")]
 
@@ -100,8 +114,31 @@ namespace BackEnd.Controllers
                 .ToListAsync();
             return (Ok (almacenamientos));
         }
-        
-        
+
+        [HttpGet("/pcs")]
+
+        public async Task<IActionResult> GetPcs()
+        {
+            var Pc = await _context.Computers
+                .Include(c => c.Brand)
+                .ToListAsync();
+            return (Ok (Pc));
+        }
+
+        [HttpGet("/laptops")]
+        public async Task<IActionResult> GetLaptops()
+        {
+            var laptops = await _context.laptops
+                .Include(l => l.Product)
+                .ThenInclude(p => p.Brand)
+                .ToListAsync();
+
+            return Ok(laptops);
+        }
+
+
+
+
 
 
 
