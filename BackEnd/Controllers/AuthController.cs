@@ -47,7 +47,7 @@ namespace BackEnd.Controllers
             return Ok(new  
             {
                 token,
-                user = new { User.Id, User.Email, User.FullName }
+                user = new { User.Id, User.Email, User.FullName, User.Admin }
             });
         }
 
