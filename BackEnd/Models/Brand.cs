@@ -9,7 +9,7 @@ namespace BackEnd.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BrandId { get; set; }
-
+        [Required(ErrorMessage = "El nombre de una marca es obligatorio")]
         public string Name { get; set; }
 
         // Relación 1 a muchos: una marca tiene muchos productos

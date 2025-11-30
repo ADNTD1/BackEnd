@@ -19,7 +19,7 @@ namespace BackEnd.Controllers
             _Context = context;
         }
 
-        public class ProductCreateRequest
+        public class ProductCreateRequest  
         {
             public Product Product { get; set; }
             public DetailProduct Detail { get; set; }
@@ -149,7 +149,7 @@ namespace BackEnd.Controllers
             }
 
             _Context.Entry(product).State = EntityState.Modified;
-
+            
             try
             {
                 await _Context.SaveChangesAsync();

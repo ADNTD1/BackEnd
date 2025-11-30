@@ -1,5 +1,6 @@
 ﻿using BackEnd.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 
 namespace Ecomerce_Back_End.Data
