@@ -19,6 +19,12 @@ namespace BackEnd.Controllers
             _Context = context;
         }
 
+        public class ProductCreateRequest
+        {
+            public Product Product { get; set; }
+            public DetailProduct Detail { get; set; }
+        }
+
         public class DetailProduct
         {
             public string Type { get; set; }
@@ -35,16 +41,14 @@ namespace BackEnd.Controllers
             return Ok(Products);
         }
 
-
         [HttpPost("/PostProduct")]
-        public async Task<IActionResult> PostProduct([FromBody] DetailProduct Detail, Product product)
+        public async Task<IActionResult> PostProduct([FromBody] ProductCreateRequest request)
         {
-            var producto = product;
-            var detail = Detail;
+            var producto = request.Product;
+            var detail = request.Detail;
 
             _Context.Products.Add(producto);
 
-       
             try
             {
                 await _Context.SaveChangesAsync();
@@ -54,7 +58,6 @@ namespace BackEnd.Controllers
                 return StatusCode(500, $"Error al guardar el producto: {ex.Message}");
             }
 
-
             try
             {
                 bool detailAdded = false;
@@ -63,7 +66,7 @@ namespace BackEnd.Controllers
                 {
                     case "case":
                         var Case = JsonSerializer.Deserialize<Case>(detail.Data);
-                        Case.Id = producto.Id; 
+                        Case.Id = producto.Id;
                         _Context.Cases.Add(Case);
                         detailAdded = true;
                         break;
@@ -118,7 +121,7 @@ namespace BackEnd.Controllers
                         break;
 
                     default:
-                        return BadRequest($"Tipo de producto no reconocido: {detail.Type}"); 
+                        return BadRequest($"Tipo de producto no reconocido: {detail.Type}");
                 }
 
                 if (detailAdded)
@@ -129,10 +132,11 @@ namespace BackEnd.Controllers
                 return Ok();
             }
             catch (Exception ex)
-            { 
+            {
                 return StatusCode(500, $"Error al guardar el detalle del producto: {ex.Message}");
             }
         }
+
 
 
         [HttpPut("/PutProdcut")]
