@@ -11,7 +11,7 @@ public class Product
     public int BrandId { get; set; }  // foreign key de la tabla de brands 
 
     [ForeignKey("BrandId")]
-    public virtual Brand Brand { get; set; }
+    public virtual Brand? Brand { get; set; }
 
     public string? Name { get; set; }
 

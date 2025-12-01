@@ -30,8 +30,17 @@ namespace BackEnd.Controllers
             return Ok(laptops);
         }
 
+        [HttpPost("/PostLaptop")]
 
-       
+        public async Task<IActionResult> PostLaptop(Laptop laptop)
+        {
+
+            _Context.laptops.Add(laptop);
+            await _Context.SaveChangesAsync();
+            return Ok(laptop);
+        }
+    
+           
 
 
 
