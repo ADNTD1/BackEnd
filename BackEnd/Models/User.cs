@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Eventing.Reader;
 
 namespace BackEnd.Models
 {
@@ -22,5 +23,6 @@ namespace BackEnd.Models
 
         public bool Admin { get; set; }
 
+ 
     }
 }

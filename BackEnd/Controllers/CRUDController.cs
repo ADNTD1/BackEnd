@@ -45,11 +45,11 @@ namespace BackEnd.Controllers
         [HttpDelete("/DeleteLaptop")]
         public async Task<IActionResult> DeleteLaptop(int id)
         {
-       
+
             var laptop = await _Context.laptops
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            
+
 
             if (laptop == null)
             {
@@ -60,7 +60,7 @@ namespace BackEnd.Controllers
                 });
             }
 
-       
+
             _Context.laptops.Remove(laptop);
             await _Context.SaveChangesAsync();
 
@@ -125,7 +125,7 @@ namespace BackEnd.Controllers
         public async Task<IActionResult> GetComputers(int id)
         {
             var Computadora = await _Context.Computers.
-                Where( c => c.Id == id).ToListAsync();
+                Where(c => c.Id == id).ToListAsync();
             return Ok(Computadora);
         }
 
@@ -142,18 +142,20 @@ namespace BackEnd.Controllers
 
         [HttpDelete("/DeleteComputer")]
 
-        public async Task<IActionResult> DeleteComputer(int id) { 
-            
+        public async Task<IActionResult> DeleteComputer(int id)
+        {
+
             var computadora = await _Context.Computers.FirstOrDefaultAsync(c => c.Id == id);
 
             if (computadora != null)
             {
                 _Context.Computers.Remove(computadora);
-            } else
+            }
+            else
             {
                 return NotFound("computadora no encontrada");
             }
-                await _Context.SaveChangesAsync();
+            await _Context.SaveChangesAsync();
             return Ok("computadora eliminda correctamente");
 
         }
@@ -162,7 +164,7 @@ namespace BackEnd.Controllers
         public async Task<IActionResult> PutComputer(Computers computer)
         {
             if (computer == null || computer.Id == 0)
-                return BadRequest("Computadora inválida o ID no proporcionado" );
+                return BadRequest("Computadora inválida o ID no proporcionado");
 
             var existingComputer = await _Context.Computers
                 .FirstOrDefaultAsync(c => c.Id == computer.Id);
@@ -192,33 +194,41 @@ namespace BackEnd.Controllers
 
             return Ok(new { message = "Computadora actualizada correctamente", computadora = existingComputer });
         }
+
+        // usuarios / permisos --------------------------------------------------------------------------
+
+
+        [HttpGet("/Usuarios")]
+
+        public async Task<IActionResult> GetUsuarios()
+        {
+            var users = await _Context.Users.ToListAsync();
+
+            return Ok(users);
+
+        }
+
+        [HttpPut("/AdminUser")]
+        public async Task<IActionResult> SetAdminUser(int id, [FromBody] bool isAdmin)
+        {
+            var user = await _Context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+                return NotFound(new { message = "Usuario no encontrado", userId = id });
+
+            user.Admin = isAdmin;
+            _Context.Users.Update(user);
+            await _Context.SaveChangesAsync();
+
+            return Ok(new { message = "Rol de usuario actualizado correctamente", userId = id, Admin = user.Admin });
+        }
+
+
+
     }
-
-
-
-
-
-
-
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
 
 
 
