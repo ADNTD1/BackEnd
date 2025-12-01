@@ -20,6 +20,8 @@ namespace BackEnd.Controllers
             _Context = context;
         }
 
+        // Laptops ------------------------------------------------------------------------------------------------
+
         [HttpGet("/GetLaptops")]
 
         public async Task<IActionResult> GetLaptop(int id)
@@ -116,9 +118,89 @@ namespace BackEnd.Controllers
             return Ok(new { message = "Laptop actualizada correctamente", laptop = existingLaptop });
         }
 
+        // Computadoras -------------------------------------------------------------------------
+
+        [HttpGet("/GetComputadoras")]
+
+        public async Task<IActionResult> GetComputers(int id)
+        {
+            var Computadora = await _Context.Computers.
+                Where( c => c.Id == id).ToListAsync();
+            return Ok(Computadora);
+        }
+
+        [HttpPost("/PostComputadora")]
+
+        public async Task<IActionResult> PostComputers(Computers computer)
+        {
+            _Context.Computers.Add(computer);
+            await _Context.SaveChangesAsync();
+
+            return Ok(computer);
+
+        }
+
+        [HttpDelete("/DeleteComputer")]
+
+        public async Task<IActionResult> DeleteComputer(int id) { 
+            
+            var computadora = await _Context.Computers.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (computadora != null)
+            {
+                _Context.Computers.Remove(computadora);
+            } else
+            {
+                return NotFound("computadora no encontrada");
+            }
+                await _Context.SaveChangesAsync();
+            return Ok("computadora eliminda correctamente");
+
+        }
+
+        [HttpPut("/PutComputer")]
+        public async Task<IActionResult> PutComputer(Computers computer)
+        {
+            if (computer == null || computer.Id == 0)
+                return BadRequest("Computadora inválida o ID no proporcionado" );
+
+            var existingComputer = await _Context.Computers
+                .FirstOrDefaultAsync(c => c.Id == computer.Id);
+
+            if (existingComputer == null)
+                return NotFound(new { message = "Computadora no encontrada", computer.Id });
 
 
+            existingComputer.Name = computer.Name;
+            existingComputer.Description = computer.Description;
+            existingComputer.Stock = computer.Stock;
+            existingComputer.Price = computer.Price;
+            existingComputer.ImageUrl = computer.ImageUrl;
+            existingComputer.BrandId = computer.BrandId;
+
+            existingComputer.Cpu = computer.Cpu;
+            existingComputer.Disk = computer.Disk;
+            existingComputer.Gpu = computer.Gpu;
+            existingComputer.TotalRam = computer.TotalRam;
+            existingComputer.MemType = computer.MemType;
+            existingComputer.Psu = computer.Psu;
+            existingComputer.Os = computer.Os;
+            existingComputer.Case = computer.Case;
+
+            _Context.Computers.Update(existingComputer);
+            await _Context.SaveChangesAsync();
+
+            return Ok(new { message = "Computadora actualizada correctamente", computadora = existingComputer });
+        }
     }
+
+
+
+
+
+
+
+}
 
 
 
